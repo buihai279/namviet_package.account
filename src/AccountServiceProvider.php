@@ -2,8 +2,11 @@
 
 namespace Namviet\Account;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Namviet\Account\Http\Middleware\Permission;
+use Namviet\Account\Http\Middleware\TwoStep;
 
 class AccountServiceProvider extends ServiceProvider
 {
@@ -14,6 +17,9 @@ class AccountServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('permission', Permission::class);
+        $router->aliasMiddleware('twoStep', TwoStep::class);
         $this->registerRoutes();
         $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'views');
         if ($this->app->runningInConsole()) {
@@ -37,7 +43,7 @@ class AccountServiceProvider extends ServiceProvider
     function routeConfiguration()
     {
         return [
-            'prefix' => config('namviet.prefix', 'approve/system'),
+            'prefix' => config('namviet.prefix', 'approve'),
             'middleware' => config('namviet.middleware', ['web']),
         ];
     }
