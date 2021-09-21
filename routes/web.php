@@ -1,8 +1,8 @@
 <?php
 
-use Namviet\Account\Http\Controllers\FilesController;
 use Namviet\Account\Http\Controllers\AccountController;
 use Namviet\Account\Http\Controllers\DashBoardsController;
+use Namviet\Account\Http\Controllers\FilesController;
 use Namviet\Account\Http\Controllers\TwoStepController;
 use Namviet\Account\Http\Controllers\UserGroupPermissionsController;
 use Namviet\Account\Http\Controllers\UserGroupsController;
@@ -37,9 +37,9 @@ Route::prefix('system')->group(function () {
         Route::get('user/index', [UsersController::class, 'index'])->name('system.user.index');
         Route::get('user_group_permission/table', [UserGroupPermissionsController::class, 'table'])->name('system.user_group_permission.table');
     });
-    Route::post('/system/file/upload', [FilesController::class, 'apiUpload'])->name('system.file.apiUpload');
-    Route::post('/system/file/generateThumb', [FilesController::class, 'generateThumb'])->name('system.file.generateThumb');
-    Route::get('/system/file/resizeFitThumb', [FilesController::class, 'resizeFitThumb'])->name('system.file.resizeFitThumb');
+    Route::post('file/upload', [FilesController::class, 'apiUpload'])->name('system.file.apiUpload');
+    Route::post('file/generateThumb', [FilesController::class, 'generateThumb'])->name('system.file.generateThumb');
+    Route::get('file/resizeFitThumb', [FilesController::class, 'resizeFitThumb'])->name('system.file.resizeFitThumb');
     Route::post('Account/updateProfile', [AccountController::class, 'updateProfile'])->name('system.user.updateProfile');
     Route::get('user/afterLogin', [UsersController::class, 'afterLogin'])->name('system.user.afterLogin');
     Route::get('refresh_captcha', [UsersController::class, 'refreshCaptcha'])->name('refresh.captcha');

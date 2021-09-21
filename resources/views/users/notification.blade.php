@@ -9,7 +9,7 @@
                 <!--begin::Row-->
                 <div class="row">
                     <div class="col-lg-12">
-                        @include('components.notice')
+                        @include('layouts::components_v8.alerts')
                     </div>
                 </div>
                 <div class="row mb-6">

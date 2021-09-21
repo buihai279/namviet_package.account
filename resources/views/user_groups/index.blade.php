@@ -6,7 +6,7 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class=" container ">
-            @include('components.notice')
+            @include('layouts::components_v8.alerts')
 
             <!--begin::Card-->
                 <div class="card card-custom">
@@ -21,8 +21,8 @@
                     </div>
                     <div class="card-body">
                         <table
-                                class="table table-separate table-head-custom table-checkable table-striped table-bordered table-hover"
-                                id="kt_datatable">
+                            class="table table-separate table-head-custom table-checkable table-striped table-bordered table-hover"
+                            id="kt_datatable">
                             <thead>
                             <tr>
                                 <th>Tên</th>

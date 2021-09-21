@@ -6,7 +6,7 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class=" container-fluid ">
-            @include('components.notice')
+            @include('layouts::components_v8.alerts')
 
             <!--begin::Card-->
                 <div class="card card-custom">
@@ -20,8 +20,8 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table
-                                class="table table-separate table-head-custom table-checkable table-striped table-bordered table-hover"
-                                id="">
+                                    class="table table-separate table-head-custom table-checkable table-striped table-bordered table-hover"
+                                    id="">
                                 <thead>
                                 <tr>
                                     <th rowspan="3">Nhóm chức năng</th>
