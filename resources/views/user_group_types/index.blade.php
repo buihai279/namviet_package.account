@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts::master')
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -50,7 +50,7 @@
                                             @if($userGroupType->status===1)
                                                 <button class="btn btn-warning form-delete">Ngưng kích hoạt</button>
                                             @else
-                                                <button class="btn btn-secondary" >Kích hoạt</button>
+                                                <button class="btn btn-secondary">Kích hoạt</button>
                                             @endif
                                         </form>
                                     </td>
@@ -113,7 +113,7 @@
                 cancelButtonText: "Hủy bỏ thao tác"
             }).then(function (result) {
                 if (result.value) {
-                    $this.closest( "form" ).submit();
+                    $this.closest("form").submit();
                 }
             });
         });

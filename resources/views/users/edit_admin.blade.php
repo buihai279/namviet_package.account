@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts::master')
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid pt-0" id="kt_content" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">

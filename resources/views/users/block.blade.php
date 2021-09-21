@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts::master')
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid pt-0" id="kt_content" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
@@ -39,15 +39,17 @@
                                 <!--begin::Form group-->
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
-                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tài khoản: </label>
-                                        <span  class="font-size-h6 pt-5">{{'@'.$user->username}}</span>
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tài
+                                            khoản: </label>
+                                        <span class="font-size-h6 pt-5">{{'@'.$user->username}}</span>
                                     </div>
                                 </div>
                                 <!--begin::Form group-->
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
-                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên đầy đủ: </label>
-                                        <span  class="font-size-h6 pt-5 text">{{$user->fullname}}</span>
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên đầy
+                                            đủ: </label>
+                                        <span class="font-size-h6 pt-5 text">{{$user->fullname}}</span>
                                     </div>
                                 </div>
                                 <!--begin::Form group-->
@@ -81,7 +83,8 @@
                         <!--end::Card-->
                     </div>
                     <div class="col-lg-6 {{$user->status===1?'position-relative overflow-hidden':''}} ">
-                        <div class="{{$user->status===1?'bg-dark h-100 opacity-30 position-absolute w-100  zindex-1':''}}"></div>
+                        <div
+                            class="{{$user->status===1?'bg-dark h-100 opacity-30 position-absolute w-100  zindex-1':''}}"></div>
                         <!--begin::Card-->
                         <div class="card card-custom card-stretch p-10">
                             <form class="form" novalidate="novalidate" method="POST"
@@ -98,15 +101,17 @@
                                 <!--begin::Form group-->
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
-                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên đầy đủ: </label>
-                                        <span  class="font-size-h6 pt-5 text">{{$user->fullname}}</span>
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên đầy
+                                            đủ: </label>
+                                        <span class="font-size-h6 pt-5 text">{{$user->fullname}}</span>
                                     </div>
                                 </div>
                                 <!--begin::Form group-->
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
-                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tài khoản: </label>
-                                        <span  class="font-size-h6 pt-5">{{'@'.$user->username}}</span>
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tài
+                                            khoản: </label>
+                                        <span class="font-size-h6 pt-5">{{'@'.$user->username}}</span>
                                     </div>
                                 </div>
                                 <!--begin::Form group-->
@@ -121,7 +126,8 @@
                                 <!--begin::Form group-->
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
-                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Lý do đã khóa: </label>
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Lý do đã
+                                            khóa: </label>
                                         <span
                                             class="font-size-h6 pt-5">{{$user->reason_block}}</span>
                                     </div>

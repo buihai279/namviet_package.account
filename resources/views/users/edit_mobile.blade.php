@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts::master')
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid pt-0" id="kt_content" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
@@ -37,14 +37,16 @@
                                 <!--begin::Form group-->
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
-                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">{{__('label.otp.mobile')}}</label>
+                                        <label
+                                            class="font-size-h6 font-weight-bolder text-dark pt-5">{{__('label.otp.mobile')}}</label>
                                     </div>
                                     <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
                                            type="number" name="mobile" autocomplete="off"
-                                           value="{{$data->mobile??''}}" placeholder="{{__('label.placeholder.mobile')}}"/>
+                                           value="{{$data->mobile??''}}"
+                                           placeholder="{{__('label.placeholder.mobile')}}"/>
                                 </div>
                                 <!--end::Form group-->
-                            <!--begin::Action-->
+                                <!--begin::Action-->
                                 <div class="text-center pt-2">
                                     <button id="kt_login_signin_submit" type="submit"
                                             class="btn btn-bg-info text-white  font-weight-bolder font-size-h6 px-8 py-4 my-3">

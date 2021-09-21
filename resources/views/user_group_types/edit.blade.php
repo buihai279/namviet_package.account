@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts::master')
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid pt-0" id="kt_content" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
@@ -17,7 +17,8 @@
                         <!--begin::Card-->
                         <div class="card card-custom card-stretch p-10">
                             <form class="form" novalidate="novalidate" method="POST"
-                                  action="{{route('system.user_group_type.update', $data->id)}}" id="kt_login_signin_form">
+                                  action="{{route('system.user_group_type.update', $data->id)}}"
+                                  id="kt_login_signin_form">
                                 @if (!empty($errors->all()))
                                     <div class="alert alert-danger">
                                         <ul>
@@ -32,38 +33,41 @@
                                 <div class="text-center pb-8">
                                     <h2 class="font-weight-bolder text-dark font-size-h2 ">Sửa thông tin phòng ban</h2>
                                 </div>
-                                    <!--begin::Form group-->
-                                    <div class="form-group">
-                                        <div class="d-flex justify-content-between mt-n5">
-                                            <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên: <span class="text-danger">*</span></label>
-                                        </div>
-                                        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
-                                               type="text" name="name" autocomplete="off"
-                                               value="{{$data->name??''}}"/>
-                                        <p class="text-muted">Trường này là thông tin nhạy cảm nên hạn chế đổi</p>
+                                <!--begin::Form group-->
+                                <div class="form-group">
+                                    <div class="d-flex justify-content-between mt-n5">
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên: <span
+                                                class="text-danger">*</span></label>
                                     </div>
-                                    <!--end::Form group-->
-                                    <!--begin::Form group-->
-                                    <div class="form-group">
-                                        <div class="d-flex justify-content-between mt-n5">
-                                            <label class="font-size-h6 font-weight-bolder text-dark pt-5">Mã phòng ban: <span class="text-danger">*</span></label>
-                                        </div>
-                                        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
-                                               type="text" name="code" autocomplete="off"
-                                               value="{{$data->code??''}}"/>
-                                        <p class="text-muted">Trường này là thông tin nhạy cảm nên hạn chế đổi</p>
+                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
+                                           type="text" name="name" autocomplete="off"
+                                           value="{{$data->name??''}}"/>
+                                    <p class="text-muted">Trường này là thông tin nhạy cảm nên hạn chế đổi</p>
+                                </div>
+                                <!--end::Form group-->
+                                <!--begin::Form group-->
+                                <div class="form-group">
+                                    <div class="d-flex justify-content-between mt-n5">
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Mã phòng ban:
+                                            <span class="text-danger">*</span></label>
                                     </div>
-                                    <!--end::Form group-->
-                                    <!--begin::Form group-->
-                                    <div class="form-group">
-                                        <div class="d-flex justify-content-between mt-n5">
-                                            <label class="font-size-h6 font-weight-bolder text-dark pt-5">Mô tả ngắn: <span class="text-danger">*</span></label>
-                                        </div>
-                                        <textarea class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
-                                               name="description" autocomplete="off"
-                                                  >{{$data->description??''}}</textarea>
+                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
+                                           type="text" name="code" autocomplete="off"
+                                           value="{{$data->code??''}}"/>
+                                    <p class="text-muted">Trường này là thông tin nhạy cảm nên hạn chế đổi</p>
+                                </div>
+                                <!--end::Form group-->
+                                <!--begin::Form group-->
+                                <div class="form-group">
+                                    <div class="d-flex justify-content-between mt-n5">
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Mô tả ngắn: <span
+                                                class="text-danger">*</span></label>
                                     </div>
-                                    <!--begin::Action-->
+                                    <textarea class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
+                                              name="description" autocomplete="off"
+                                    >{{$data->description??''}}</textarea>
+                                </div>
+                                <!--begin::Action-->
                                 <div class="text-center pt-2">
                                     <button id="kt_login_signin_submit" type="submit"
                                             class="btn btn-bg-success text-white font-weight-bolder font-size-h6 px-8 py-4 my-3">

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts::master')
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid pt-0" id="kt_content" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
@@ -36,13 +36,15 @@
 
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
-                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên tài khoản:<span
+                                        <label class="font-size-h6 font-weight-bolder text-dark pt-5">Tên tài
+                                            khoản:<span
                                                 class="text-danger">*</span></label>
                                     </div>
                                     <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
                                            type="text" name="username" required autocomplete="off"
                                            value="{{$data->username??''}}"/>
-                                    <p class="text-muted text-warning">Tên tài khoản phải viết liền không dấu, chữ thường, không khoảng trắng. Ví dụ: toan_tq, toan.tq, toantq1</p>
+                                    <p class="text-muted text-warning">Tên tài khoản phải viết liền không dấu, chữ
+                                        thường, không khoảng trắng. Ví dụ: toan_tq, toan.tq, toantq1</p>
                                 </div>
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between mt-n5">
@@ -89,7 +91,8 @@
                                             mới:<span
                                                 class="text-danger">*</span></label>
                                     </div>
-                                    <input id="password_reg" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
+                                    <input id="password_reg"
+                                           class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
                                            type="password" required name="password" autocomplete="off"/>
                                     <span class="glyphicon form-control-feedback" id="password_reg1"></span>
                                 </div>
@@ -102,7 +105,8 @@
                                                 class="text-danger">*</span></label>
                                     </div>
                                     <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"
-                                           type="password" required name="password_confirmation" id="password_confirmation" autocomplete="off"/>
+                                           type="password" required name="password_confirmation"
+                                           id="password_confirmation" autocomplete="off"/>
                                     <span class="glyphicon form-control-feedback" id="password_confirmation1">
                                           </span>
                                 </div>
@@ -150,7 +154,7 @@
                                     </div>
                                 </div>
                                 <!--end::Form group-->
-                                    <br>
+                                <br>
                             @include('layouts.partials.assets.js.custom_uppy')
                             @include('components.forms.uploads.uppy-common', ['fieldName'=>'avatar'])
                             <!--begin::Action-->
