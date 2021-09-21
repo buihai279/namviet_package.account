@@ -1,0 +1,17 @@
+{
+    "name": "namviet/account",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Namviet\\Account\\": "src/"
+        }
+    },
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Namviet\\Account\\AccountServiceProvider"
+            ]
+        }
+    }
+}
