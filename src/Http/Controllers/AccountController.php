@@ -2,13 +2,13 @@
 
 namespace Namviet\Account\Http\Controllers;
 
-use App\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Namviet\Account\Models\FileManaged;
 use Namviet\Account\Models\User;
+use Namviet\Account\Repositories\UserRepository;
 
 class AccountController extends Controller
 {

@@ -6,7 +6,13 @@
             "Namviet\\Account\\": "src/"
         }
     },
-    "require": {},
+    "require": {
+        "prettus/l5-repository": "^2.7",
+        "jenssegers/mongodb": "^3.8",
+        "ext-mongodb": "*",
+        "namviet/theme": "dev-main",
+        "mews/captcha": "^3.2"
+    },
     "extra": {
         "laravel": {
             "providers": [

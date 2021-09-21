@@ -3,7 +3,6 @@
 namespace Namviet\Account\Http\Controllers;
 
 use App\Notification;
-use App\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +12,7 @@ use Namviet\Account\Models\FileManaged;
 use Namviet\Account\Models\User;
 use Namviet\Account\Models\UserGroup;
 use Namviet\Account\Models\UserGroupType;
+use Namviet\Account\Repositories\UserRepository;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class UsersController extends Controller
