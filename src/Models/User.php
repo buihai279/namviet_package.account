@@ -2,14 +2,14 @@
 
 namespace Namviet\Account\Models;
 
-use App\Casts\ObjectIDCast;
-use App\Helpers\Helper;
-use App\Overrides\Notifications\Notifiable;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use MongoDB\BSON\ObjectId;
+use Namviet\Account\Casts\ObjectIDCast;
+use Namviet\Account\Helpers\Helper;
+use Namviet\Account\Overrides\Notifications\Notifiable;
 
 
 class  User extends Authenticatable
