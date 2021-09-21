@@ -12,7 +12,7 @@
                 <div class="me-7 mb-4">
                     <div
                         class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                        {{--                        <img src="{{Auth::user()->avatar_url}}" alt=""/>--}}
+                        <img src="{{Auth::user()->avatar_url}}" alt=""/>
                     </div>
                 </div>
                 <!--end::Pic-->
@@ -27,7 +27,7 @@
                             <div class="d-flex align-items-center mb-2">
                                 <a href="#"
                                    class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">
-                                    {{--                                    {{Auth::user()->fullname}}--}}
+                                    {{Auth::user()->fullname}}
                                 </a>
 
                             </div>
@@ -38,7 +38,7 @@
                                 <a href="#"
                                    class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                     <i class="la la-mailchimp"></i>
-                                {{--                                    {{Auth::user()->email}}</a>--}}
+                                    {{Auth::user()->email}}</a>
                             </div>
                             <!--end::Info-->
                         </div>
