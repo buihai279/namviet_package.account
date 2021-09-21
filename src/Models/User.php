@@ -9,13 +9,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
-use Maklad\Permission\Traits\HasRoles;
 use MongoDB\BSON\ObjectId;
 
 
 class  User extends Authenticatable
 {
-    use HasRoles;
     use Notifiable;
 
     public const ACTIVE_STATUS = 1;
