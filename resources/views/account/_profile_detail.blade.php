@@ -34,8 +34,8 @@
                     <!--begin::Row-->
                     <div class="row">
                         <!--end::Form group-->
-                    @include('layouts.partials.assets.js.custom_uppy')
-                    @include('components.forms.uploads.uppy-common', ['fieldName'=>'avatar'])
+                    @include('layouts::assets.js.custom_uppy')
+                    @include('layouts::components_v8.forms.uploads.uppy-common', ['fieldName'=>'avatar'])
                     <!--begin::Action-->
                     </div>
                 </div>
