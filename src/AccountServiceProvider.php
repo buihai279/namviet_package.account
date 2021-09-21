@@ -43,8 +43,8 @@ class AccountServiceProvider extends ServiceProvider
     function routeConfiguration()
     {
         return [
-            'prefix' => config('namviet.prefix', 'approve'),
-            'middleware' => config('namviet.middleware', ['web']),
+            'prefix' => config('namviet_account.route_prefix', ''),
+            'middleware' => config('namviet_account.middleware', ['web']),
         ];
     }
 }

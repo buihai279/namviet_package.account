@@ -45,6 +45,6 @@ class AccountController extends Controller
         $result = $this->userRepository->update($data, Auth::id());
         Session::put('user', $result);//update profile thành công => update lại session
         $request->session()->flash('notice', __('notice.update_profile_success'));
-        return redirect()->route('system.user.edit');
+        return redirect()->route('account.settings');
     }
 }

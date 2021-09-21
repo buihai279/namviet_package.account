@@ -40,7 +40,6 @@ Route::prefix('system')->group(function () {
     Route::get('user/afterLogin', [UsersController::class, 'afterLogin'])->name('system.user.afterLogin');
     Route::get('refresh_captcha', [UsersController::class, 'refreshCaptcha'])->name('refresh.captcha');
     Route::get('account/settings', [AccountController::class, 'settings'])->name('account.settings');
-    Route::get('account/edit', [AccountController::class, 'settings'])->name('system.user.edit');
     Route::post('account/update', [AccountController::class, 'update'])->name('account.update');
     Route::post('user/updateAdmin/{id}', [UsersController::class, 'adminEdit'])->name('system.user.updateAdmin');
     Route::get('user/notification', [UsersController::class, 'notification'])->name('system.user.notification');
