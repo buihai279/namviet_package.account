@@ -43,7 +43,7 @@
                                     <td>{{$userGroup->description}}</td>
                                     <td>{{$userGroup->status===1?'Kích hoạt':'Ngưng kích hoạt'}}</td>
                                     <td>{{$userGroup->permissions?count($userGroup->permissions):0}} quyền hạn</td>
-                                    <td>{!! $userGroup->user?$userNameList[(string)$userGroup->user]:'' !!}</td>
+                                    <td>{!! isset($userGroup->user,$userNameList[(string)$userGroup->user])?$userNameList[(string)$userGroup->user]:'' !!}</td>
                                     <td>{{Helper::transformDate($userGroup->created)}}</td>
                                     <td>
                                         <a href="{{route('system.user_group.edit', $userGroup->_id)}}"
