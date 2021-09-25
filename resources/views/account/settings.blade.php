@@ -12,7 +12,7 @@
                 <div class="me-7 mb-4">
                     <div
                         class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                        <img src="{{Auth::user()->avatar_url}}" alt=""/>
+                        <img src="{{$data->avatar_url}}" alt=""/>
                     </div>
                 </div>
                 <!--end::Pic-->
@@ -27,18 +27,25 @@
                             <div class="d-flex align-items-center mb-2">
                                 <a href="#"
                                    class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">
-                                    {{Auth::user()->fullname}}
+                                    {{$data->fullname}}
                                 </a>
 
                             </div>
                             <!--end::Name-->
                             <!--begin::Info-->
                             <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
-
                                 <a href="#"
                                    class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                     <i class="la la-mailchimp"></i>
-                                    {{Auth::user()->email}}</a>
+                                    {{$data->email}}</a>
+                            </div>
+                            <!--end::Info-->
+                            <!--begin::Info-->
+                            <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
+                                <a href="#"
+                                   class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
+                                    <i class="la la-mailchimp"></i>
+                                    {{$data->mobile}}</a>
                             </div>
                             <!--end::Info-->
                         </div>
@@ -83,6 +90,15 @@
     @include('views::account._security_account')
     <!--end::Content-->
     </div>
+    <div class="card mb-5 mb-xl-10">
+        <div class="card-body border-top p-9">
+            <!--begin::Modals-->
+            <!--begin::Modal - Two-factor authentication-->
+        @include('views::account._two_factor_authentication')
+        <!--end::Modal - Two-factor authentication-->
+            <!--end::Modals-->
+        </div>
+    </div>
     <!--end::Sign-in Method-->
     <!--begin::Basic info-->
     <div class="card mb-5 mb-xl-10">
@@ -102,17 +118,8 @@
     <!--end::Content-->
     </div>
     <!--end::Basic info-->
-    <div class="card mb-5 mb-xl-10">
-        <div class="card-body border-top p-9">
-            <!--begin::Modals-->
-            <!--begin::Modal - Two-factor authentication-->
-        @include('views::account._two_factor_authentication')
-        <!--end::Modal - Two-factor authentication-->
-            <!--end::Modals-->
-        </div>
-    </div>
 @endsection
-@section('script_bottom')
+@push('script_bottom')
     <script src="{{asset('assets/v8/js/custom/account/settings/signin-methods.js')}}"></script>
-    <script src="{{asset('assets/v8/js/custom/modals/two-factor-authentication.js')}}"></script>
-@endsection
+    {{--    <script src="{{asset('assets/v8/js/custom/modals/two-factor-authentication.js')}}"></script>--}}
+@endpush

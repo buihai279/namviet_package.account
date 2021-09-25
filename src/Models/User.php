@@ -10,6 +10,7 @@ use MongoDB\BSON\ObjectId;
 use Namviet\Account\Casts\ObjectIDCast;
 use Namviet\Account\Helpers\Helper;
 use Namviet\Account\Overrides\Notifications\Notifiable;
+use RobThree\Auth\TwoFactorAuth;
 
 
 class  User extends Authenticatable
@@ -34,9 +35,14 @@ class  User extends Authenticatable
         'created' => 'immutable_datetime',
         'modified' => 'immutable_datetime',
         'time_expired' => 'immutable_datetime',
+        'code' => 'string',
+        'authenticator_secret' => 'string',
         'mobile' => 'string',
         'otp_active' => 'int',
         'user' => ObjectIDCast::class,
+    ];
+    protected $attributes = [
+        'code' => '',
     ];
     protected $collection = 'users';
     protected $connection = 'mongodb';
@@ -45,6 +51,7 @@ class  User extends Authenticatable
         "password",
         "email",
         "user_group",
+        "authenticator_secret",
         "status",
         "description",
         "user",
@@ -109,6 +116,17 @@ class  User extends Authenticatable
     {
         $avatarUri = Helper::getDataFiles($this, 'avatar', false);
         return $avatarUri ? asset($avatarUri) : 'https://placehold.co/300x300.png?text=' . substr($this->fullname, 0, 1);
+    }
+
+
+    public function getAuthenticatorSecretAttribute()
+    {
+        return $this->authenticator_secret ?? app(TwoFactorAuth::class)->createSecret();
+    }
+
+    public function setAuthenticatorSecretAttribute()
+    {
+        $this->attributes['authenticator_secret'] = app(TwoFactorAuth::class)->createSecret();
     }
 
     public function getUserNotify()

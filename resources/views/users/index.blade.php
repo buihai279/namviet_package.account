@@ -55,7 +55,7 @@
                                     <td>{{Helper::transformDate($user->created)}}</td>
                                     <td>
                                         {{-- TÀI KHOẢN SYS ADMIN KHÔNG ĐƯỢC TÁC ĐỘNG--}}
-                                        <a href="{{route('system.user.admin_edit', $user->_id)}}"
+                                        <a href="{{route('account.settings', $user->_id)}}"
                                            class="btn btn-info">Sửa
                                             tài khoản</a>
 
@@ -77,7 +77,7 @@
     </div>
     <!--end::Content-->
 @endsection
-@section('script_bottom')
+@push('script_bottom')
     <!--begin::Page Vendors(used by this page)-->
     <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <!--end::Page Vendors-->
@@ -108,5 +108,5 @@
         });
 
     </script>
-@endsection
+@endpush
 

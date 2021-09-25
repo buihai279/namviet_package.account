@@ -6,14 +6,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use MongoDB\BSON\ObjectId;
-use Namviet\Account\Models\FileManaged;
+use Namviet\Account\Http\Requests\LoginRequest;
 use Namviet\Account\Models\Notification;
 use Namviet\Account\Models\User;
 use Namviet\Account\Models\UserGroup;
 use Namviet\Account\Models\UserGroupType;
 use Namviet\Account\Repositories\UserRepository;
-use Prettus\Validator\Exceptions\ValidatorException;
 
 class UsersController extends Controller
 {
@@ -29,7 +27,7 @@ class UsersController extends Controller
 //        $this->middleware('twoStep')->only('afterLogin');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         //validate captcha
         if (Session::get('check', 0) >= 3) {
@@ -57,7 +55,7 @@ class UsersController extends Controller
         Session::put('userGroupType', []);
         Session::put('check', Session::get('check', 0) + 1);
         Session::save();
-        $request->session()->flash('alert_error', __('notice.user_pass_wrong'));
+        $request->session()->flash('error', __('notice.user_pass_wrong'));
         return redirect(route('index'));
     }
 
@@ -75,48 +73,6 @@ class UsersController extends Controller
         ]);
     }
 
-    public function adminEdit(Request $request, $id)
-    {
-        if (Auth::user()->code !== self::SYS_ADMIN) {
-            $data = User::whereIn('user_group', UserGroup::getGroupPrivileged())->findOrFail($id);
-        } else {
-            //IF SYS ADMIN FULL PERMISSION
-            $data = User::findOrFail($id);
-        }
-        if (Auth::user()->code !== self::SYS_ADMIN) {
-            $userGroups = UserGroup::select(['_id', 'name', 'status'])->whereIn('_id', UserGroup::getGroupPrivileged())->get();
-        } else {
-            //IF SYS ADMIN FULL PERMISSION
-            $userGroups = UserGroup::select(['_id', 'name', 'status'])->get();
-        }
-        if ($request->getMethod() === 'POST') {
-            return $this->updateAdmin($request, $id);
-        }
-        FileManaged::showFile($data);
-        return view('views::users.edit_admin', ['data' => $data, 'userGroups' => $userGroups]);
-    }
-
-    private function updateAdmin(Request $request, $user_id): RedirectResponse
-    {
-        $request_data = $request->only(['fullname', 'user_group', 'files', 'file_uris', 'code', 'otp_active']);
-        $request->validate([
-            'fullname' => 'required',
-            'user_group' => 'required',
-        ]);
-        $obj_user = User::find($user_id);
-        $obj_user->fullname = $request_data['fullname'];
-        $obj_user->files = $request_data['files'] ?? null;
-        $obj_user->code = $request_data['code'] ?? null;
-        $obj_user->file_uris = $request_data['file_uris'] ?? null;
-        $obj_user->user_group = $request_data['user_group'] ? new ObjectId($request_data['user_group']) : '';
-        $obj_user->otp_active = $request_data['otp_active'] ?? "1";
-        if ($obj_user->save()) {
-            $request->session()->flash('notice', __('notice.update_profile_success'));
-        } else {
-            $request->session()->flash('notice', __('notice.error_occurred'));
-        }
-        return redirect()->route('system.user.index');
-    }
 
     public function block(Request $request, $id)
     {
@@ -205,25 +161,6 @@ class UsersController extends Controller
         return redirect(route('index'));
     }
 
-    /**
-     * @throws ValidatorException
-     */
-    public function adminResetPassword(Request $request, $id): RedirectResponse
-    {
-        $request->validate([
-            'password' => 'required|max:255|min:6|confirmed',
-            'password_confirmation' => 'required',
-        ]);
-        $request_data = $request->only(['password']);
-
-        if ($this->userRepository->update($request_data, $id)) {
-            $request->session()->flash('notice', __('notice.change_password_success'));
-        } else {
-            $request->session()->flash('notice', __('notice.error_occurred'));
-        }
-
-        return redirect()->route('system.user.index');
-    }
 
     public function refreshCaptcha(): string
     {

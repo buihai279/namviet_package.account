@@ -153,7 +153,7 @@
         <!--end::Entry-->
     </div>
 @endsection
-@section('script_bottom')
+@push('script_bottom')
     <script src="{{asset('assets/js/pages/features/miscellaneous/sweetalert2.js?v=7.1.8')}}"></script>
     <script>
         function confirmDelete(e) {
@@ -172,4 +172,4 @@
             });
         }
     </script>
-@endsection
+@endpush

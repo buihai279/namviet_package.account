@@ -12,7 +12,8 @@
         "ext-mongodb": "*",
         "namviet/theme": "^1",
         "laravel/framework": "^8.61.0",
-        "mews/captcha": "^3.2"
+        "mews/captcha": "^3.2",
+        "robthree/twofactorauth": "^1.8"
     },
     "extra": {
         "laravel": {

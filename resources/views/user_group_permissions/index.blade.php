@@ -166,7 +166,7 @@
     </div>
     <!--end::Content-->
 @endsection
-@section('script_bottom')
+@push('script_bottom')
     <!--begin::Page Vendors(used by this page)-->
     <!--end::Page Vendors-->
     <!--begin::Page Scripts(used by this page)-->
@@ -185,5 +185,5 @@
         });
     </script>
 
-@endsection
+@endpush
 

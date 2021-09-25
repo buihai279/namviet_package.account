@@ -10,10 +10,10 @@ use Namviet\Account\Http\Controllers\UserGroupTypesController;
 use Namviet\Account\Http\Controllers\UsersController;
 
 Route::get('/', [DashBoardsController::class, 'index'])->name('index');
+Route::get('system/user/login', [DashBoardsController::class, 'index'])->name('login');
 Route::post('user/login', [UsersController::class, 'login'])->name('system.user.login');
-Route::prefix('system')->group(function () {
+Route::prefix('system')->middleware(['auth:web'])->group(function () {
     Route::middleware(['permission'])->group(function () {
-        Route::get('system/user/login', [DashBoardsController::class, 'index'])->name('login');
         Route::get('user_group/edit/{id}', [UserGroupsController::class, 'edit'])->name('system.user_group.edit');
         Route::post('user_group/edit/{id}', [UserGroupsController::class, 'edit'])->name('system.user_group.update');
         Route::post('user_group/add', [UserGroupsController::class, 'add'])->name('system.user_group.store');
@@ -28,8 +28,6 @@ Route::prefix('system')->group(function () {
         Route::get('user_group_type/add', [UserGroupTypesController::class, 'add'])->name('system.user_group_type.add');
         Route::post('user_group_type/toggle/{id}', [UserGroupTypesController::class, 'toggle'])->name('system.user_group_type.toggle');
         Route::get('user_group_type/index', [UserGroupTypesController::class, 'index'])->name('system.user_group_type.index');
-        Route::get('user/admin_edit/{id}', [UsersController::class, 'adminEdit'])->name('system.user.admin_edit');
-        Route::post('user/admin_reset_password/{id}', [UsersController::class, 'adminResetPassword'])->name('system.user.admin_reset_password');
         Route::get('user/block/{id}', [UsersController::class, 'block'])->name('system.user.block');
         Route::post('user/block/{id}', [UsersController::class, 'block'])->name('system.user.block');
         Route::post('user/add', [UsersController::class, 'add'])->name('system.user.store');
@@ -43,9 +41,9 @@ Route::prefix('system')->group(function () {
     Route::post('Account/updateProfile', [AccountController::class, 'updateProfile'])->name('system.user.updateProfile');
     Route::get('user/afterLogin', [UsersController::class, 'afterLogin'])->name('system.user.afterLogin');
     Route::get('refresh_captcha', [UsersController::class, 'refreshCaptcha'])->name('refresh.captcha');
-    Route::get('account/settings', [AccountController::class, 'settings'])->name('account.settings');
-    Route::post('account/update', [AccountController::class, 'update'])->name('account.update');
-    Route::post('user/updateAdmin/{id}', [UsersController::class, 'adminEdit'])->name('system.user.updateAdmin');
+    Route::get('account/settings/{id?}', [AccountController::class, 'settings'])->name('account.settings');
+    Route::post('account/update/{id}', [AccountController::class, 'update'])->name('account.update');
+    Route::post('account/verifyAuthCode/{id?}', [AccountController::class, 'verifyAuthCode'])->name('account.verifyAuthCode');
     Route::get('user/notification', [UsersController::class, 'notification'])->name('system.user.notification');
     Route::post('user/notification/markAsReadAll', [UsersController::class, 'markAsReadAll'])->name('system.user.notification.markAsReadAll');
     Route::post('user/notification/destroyAll', [UsersController::class, 'destroyAll'])->name('system.user.notification.destroyAll');

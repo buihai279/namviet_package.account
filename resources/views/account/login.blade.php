@@ -11,6 +11,10 @@
                 <!--begin::Content-->
                 <div class="d-flex flex-center flex-column flex-column-fluid">
                     <!--begin::Wrapper-->
+                    <a href="#" class="text-center pt-2">
+                        <img src="https://cms-testing.vtvtravel.vn/approve//assets/custom/image/logo.png"
+                             class="max-h-75px max-w-200px mt-20" alt="">
+                    </a>
                     <div class="w-lg-500px p-10 p-lg-15 mx-auto">
                     @include('layouts::components_v8.alerts')
                     <!--begin::Form-->
@@ -35,7 +39,7 @@
                                 <!--begin::Input-->
                                 <input class="form-control form-control-lg form-control-solid border-primary"
                                        type="text"
-                                       name="username"
+                                       name="username" value="{{old('username')}}"
                                        autocomplete="off"/>
                                 <!--end::Input-->
                             </div>
@@ -53,7 +57,7 @@
                                 <!--end::Wrapper-->
                                 <!--begin::Input-->
                                 <input class="form-control form-control-lg form-control-solid  border-primary"
-                                       type="password"
+                                       type="password" value="{{old('password')}}"
                                        name="password" autocomplete="off"/>
                                 <!--end::Input-->
                                 @if(!empty(request()->session()->get('check')) && request()->session()->get('check') >=3)
