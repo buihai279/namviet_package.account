@@ -11,15 +11,6 @@ class UserGroupPermissionsController extends Controller
 {
     private const SYS_ADMIN = 'SYS_ADMIN';
 
-    public function table(Request $request)
-    {
-        return view('views::user_group_permissions.table', [
-            'codeGrs' => config('permission.codes'),
-            'userGroupTypes' => UserGroupType::select(['name'])->get(),
-            'types' => UserGroup::select(['name', 'permissions'])->get()->groupBy('user_group_type')
-        ]);
-    }
-
     public function edit(Request $request, $id)
     {
         if (Auth::user()->code !== self::SYS_ADMIN) {
@@ -29,7 +20,7 @@ class UserGroupPermissionsController extends Controller
         }
         $requestAll = $request->only('permissions');
         UserGroup::where('_id', $id)->update(['permissions' => $requestAll['permissions']]);
-        return redirect(route('system.user_group_permission.index', ['user_group' => $id]));
+        return redirect(route('system.user_group_permission.index', ['user_group' => $userGroup]));
     }
 
     public function index(Request $request)
@@ -47,9 +38,9 @@ class UserGroupPermissionsController extends Controller
         if (Auth::user()->code !== self::SYS_ADMIN) {
             //nếu không phải sys admin thì chỉ cho phân quyền những quyền nó có thể
             foreach ($codeGrs as $key => $code) {
-                $avaiable = array_intersect(array_keys($code['list']) ?? [], session()->get('userGroup')->permissions);
+                $available = array_intersect(array_keys($code['list']) ?? [], session()->get('userGroup')->permissions);
                 foreach ($codeGrs[$key]['list'] as $k => $per) {
-                    if (!in_array($k, $avaiable)) {
+                    if (!in_array($k, $available, true)) {
                         unset($codeGrs[$key]['list'][$k]);
                     }
                 }

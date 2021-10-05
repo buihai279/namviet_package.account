@@ -2,13 +2,15 @@
 
 namespace Namviet\Account\Http\Controllers;
 
-use App\Http\Requests\AuthCodeRequest;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Log;
 use Namviet\Account\Http\Requests\AccountRequest;
+use Namviet\Account\Http\Requests\AuthCodeRequest;
 use Namviet\Account\Models\FileManaged;
 use Namviet\Account\Models\User;
 use Namviet\Account\Models\UserGroup;
@@ -30,7 +32,7 @@ class AccountController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function settings($id = '')
+    public function settings($id = ''): View|Redirector|RedirectResponse
     {
         $tfa = new TwoFactorAuth('RobThree TwoFactorAuth');
         $secret = $tfa->createSecret();
@@ -57,7 +59,6 @@ class AccountController extends Controller
     public function verifyAuthCode(AuthCodeRequest $request, $id)
     {
         $tfa = new TwoFactorAuth('RobThree TwoFactorAuth');
-        echo date('H:i:s');
         try {
             $tfa->ensureCorrectTime();
             session()->flash('info', 'Your hosts time seems to be correct / within margin');

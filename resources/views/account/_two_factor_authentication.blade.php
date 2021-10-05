@@ -13,7 +13,6 @@
         <!--begin::Apps-->
         <div class="" data-kt-element="apps">
             <!--begin::Form-->
-            @dd($data)
             <form data-kt-element="apps-form" class="form" method="POST"
                   action="{{route('account.verifyAuthCode',$data->id)}}">
             @csrf

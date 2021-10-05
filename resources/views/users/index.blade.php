@@ -79,16 +79,17 @@
 @endsection
 @push('script_bottom')
     <!--begin::Page Vendors(used by this page)-->
-    <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    <script src="{{asset('vendor/theme/js/plugins/custom/datatables/i18n.js')}}"></script>
+    <script src="{{asset('vendor/theme/js/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <!--end::Page Vendors-->
     <!--begin::Page Scripts(used by this page)-->
     <script type="text/javascript">
         "use strict";
-        var KTDatatablesSearchOptionsAdvancedSearch = function () {
+        const KTDatatables = function () {
 
-            var initTable1 = function () {
+            const initTable1 = function () {
                 // begin first table
-                var table = $('#kt_datatable').DataTable({
+                const table = $('#kt_datatable').DataTable({
                     responsive: true,
                     // "dom": '<"top"ilp<"clear">>rt<"bottom"ilp<"clear">>',
                     lengthMenu: [20, 50],
@@ -104,7 +105,7 @@
             };
         }();
         jQuery(document).ready(function () {
-            KTDatatablesSearchOptionsAdvancedSearch.init();
+            KTDatatables.init();
         });
 
     </script>
