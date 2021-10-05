@@ -1,6 +1,6 @@
 <div id="kt_account_profile_details" class="collapse show">
     <!--begin::Form-->
-    <form id="kt_account_profile_details_form" action="{{route('account.update',1)}}" method="POST"
+    <form id="kt_account_profile_details_form" action="{{route('account.update',$data->id)}}" method="POST"
           class="form">
     @csrf
     <!--begin::Card body-->

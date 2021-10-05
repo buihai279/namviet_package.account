@@ -2,10 +2,7 @@
 
 namespace Namviet\Account\Http\Controllers;
 
-use Exception;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Log;
@@ -32,14 +29,14 @@ class AccountController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function settings($id = ''): View|Redirector|RedirectResponse
+    public function settings($id = '')
     {
         $tfa = new TwoFactorAuth('RobThree TwoFactorAuth');
         $secret = $tfa->createSecret();
         try {
             $qrImg = $tfa->getQRCodeImageAsDataUri('Demo', $secret);
             $tfa->getQRCodeImageAsDataUri('Demo', $secret);
-        } catch (Exception $exception) {
+        } catch (TwoFactorAuthException $exception) {
             Log::emergency($exception);
         }
         if (empty($id)) {

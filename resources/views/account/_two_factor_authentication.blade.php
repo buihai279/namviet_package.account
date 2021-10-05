@@ -96,7 +96,8 @@
         </div>
         <!--end::Apps-->
         <!--begin::Form-->
-        <form data-kt-element="apps-form" class="form" action="#">
+        <form data-kt-element="apps-form" class="form"
+              action="{{route('account.update',$data->id)}}">
             <!--begin::SMS-->
             <div class="" data-kt-element="sms">
                 <!--begin::Heading-->

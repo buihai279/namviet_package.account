@@ -10,7 +10,7 @@
         "prettus/l5-repository": "^2.7",
         "jenssegers/mongodb": "^3.8",
         "ext-mongodb": "*",
-        "namviet/theme": "^1",
+        "namviet/theme": "*",
         "laravel/framework": "^8.61.0",
         "mews/captcha": "^3.2",
         "robthree/twofactorauth": "^1.8"
