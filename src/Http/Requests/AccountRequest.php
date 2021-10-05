@@ -25,10 +25,10 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname' => 'max:25|min:1',
-            'email' => 'unique:users',
-            'mobile' => 'digits:11|starts_with:84',
-            'password' => 'max:255|min:6|confirmed|different:password_old',
+            'fullname' => 'nullable|max:25|min:1',
+            'email' => 'nullable|unique:users',
+            'mobile' => 'nullable|digits:11|starts_with:84',
+            'password' => 'nullable|max:255|min:6|confirmed|different:password_old',
         ];
     }
 }
