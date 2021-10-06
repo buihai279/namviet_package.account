@@ -43,7 +43,7 @@
                                                             @foreach($types[(string)$userGroupType->_id] as $item)
                                                                 <tr>
                                                                     <td class="{{request()->get('user_group')===(string)$item->_id?'font-size-h3-md table-success':''}}">
-                                                                        <a href="{{route('system.user_group_permission.index',['user_group'=>$item->_id])}}">
+                                                                        <a href="{{route('system.user_group.indexPermission',['user_group'=>$item->_id])}}">
                                                                             {{$item->name}}
                                                                         </a></td>
                                                                 </tr>
@@ -70,7 +70,7 @@
                                                         @foreach($types[""] as $item)
                                                             <tr>
                                                                 <td>
-                                                                    <a href="{{route('system.user_group_permission.index',['user_group'=>$item->_id])}}">
+                                                                    <a href="{{route('system.user_group.indexPermission',['user_group'=>$item->_id])}}">
                                                                         {{$item->name}}
                                                                     </a></td>
                                                             </tr>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <form class="form" method="POST"
-                                      action="{{route('system.user_group_permission.edit',$userGroup['_id'] ??'0')}}">
+                                      action="{{route('system.user_group.editPermission',$userGroup['_id'] ??'0')}}">
                                     @csrf
                                     <label class="font-weight-bold"><h4>Quyền hạn được phân bổ:</h4></label>
                                     <p class="text-muted">Các quyền của nhóm người dùng được phân bổ sẽ khả dụng khi
@@ -184,6 +184,5 @@
             });
         });
     </script>
-
 @endpush
 

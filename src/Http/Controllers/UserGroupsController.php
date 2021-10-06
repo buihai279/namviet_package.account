@@ -28,6 +28,51 @@ class UserGroupsController extends Controller
         ]);
     }
 
+
+    public function editPermission(Request $request, $id)
+    {
+        if (Auth::user()->code !== self::SYS_ADMIN) {
+            $userGroup = UserGroup::whereIn('_id', UserGroup::getGroupPrivileged())->select(['name', 'permissions', 'user_group_type'])->findOrFail($id);
+        } else {
+            $userGroup = UserGroup::select(['name', 'permissions', 'user_group_type'])->findOrFail($id);
+        }
+        $requestAll = $request->only('permissions');
+        UserGroup::where('_id', $id)->update(['permissions' => $requestAll['permissions']]);
+        return redirect(route('system.user_group.indexPermission', ['user_group' => $userGroup]));
+    }
+
+    public function indexPermission(Request $request)
+    {
+        if (Auth::user()->code !== self::SYS_ADMIN) {
+            $userGroups = UserGroup::whereIn('_id', UserGroup::getGroupPrivileged())->select(['name', 'permissions', 'user_group_type'])->orderBy('modified', 'DESC')->get();
+        } else {
+            $userGroups = UserGroup::select(['name', 'permissions', 'user_group_type'])->orderBy('modified', 'DESC')->get();
+        }
+        foreach ($userGroups as $userGroup) {
+            $types[$userGroup->user_group_type ? (string)$userGroup->user_group_type : ''][] = $userGroup;
+        }
+        $userGroup = $request->get('user_group') ? UserGroup::find($request->get('user_group'))->toArray() : null;
+        $codeGrs = config('permission.codes');
+        if (Auth::user()->code !== self::SYS_ADMIN) {
+            //nếu không phải sys admin thì chỉ cho phân quyền những quyền nó có thể
+            foreach ($codeGrs as $key => $code) {
+                $available = array_intersect(array_keys($code['list']) ?? [], session()->get('userGroup')->permissions);
+                foreach ($codeGrs[$key]['list'] as $k => $per) {
+                    if (!in_array($k, $available, true)) {
+                        unset($codeGrs[$key]['list'][$k]);
+                    }
+                }
+                if (empty($codeGrs[$key]['list'])) unset($codeGrs[$key]);
+            }
+        }
+        return view('views::user_groups.permission', [
+            'codeGrs' => $codeGrs ?? [],
+            'userGroup' => $userGroup,
+            'userGroupTypes' => UserGroupType::select(['name'])->get(),
+            'types' => $types
+        ]);
+    }
+
     public function edit(Request $request, $id)
     {
         if (Auth::user()->code !== self::SYS_ADMIN) {

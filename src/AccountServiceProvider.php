@@ -26,6 +26,7 @@ class AccountServiceProvider extends ServiceProvider
             // Publish views
             $this->publishes([
                 __DIR__ . '/../resources/views' => resource_path('views/vendor'),
+                __DIR__ . '/../resources/js/Page' => resource_path('js/vendor/Page'),
             ], 'nv-account-views');
             // Publish assets
         }

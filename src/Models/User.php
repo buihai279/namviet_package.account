@@ -96,6 +96,15 @@ class  User extends Authenticatable
         return $userNameList;
     }
 
+    /**
+     * Get the userGroup associated with the user.
+     */
+    public function userGroup()
+    {
+        return $this->hasOne(UserGroup::class, '_id', 'user_group');
+    }
+
+
     public function setTimeExpiredAttribute($value)
     {
         $now = Carbon::now();

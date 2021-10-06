@@ -2,6 +2,7 @@
 
 namespace Namviet\Account\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -14,14 +15,16 @@ class Permission
      * @param Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
+        if (Auth::user()->code === 'SYS_ADMIN') {//sys_admin has full permisson
+            return $next($request);
+        }
         $routeArray = $request->route()->getAction();
-
         $controllerAction = class_basename($routeArray['controller']);//ex: PostsController@write
         $controllerName = str_replace('Controller@', '/', $controllerAction);
 
-        $permissions = session()->get('userGroup')['permissions'] ?? [];
+        $permissions = Auth::user()->userGroup->permissions;
 
         if (empty($permissions) || !in_array($controllerName, $permissions, true)) {
             $request->session()->flash('notice', 'Không có quyền truy cập!');

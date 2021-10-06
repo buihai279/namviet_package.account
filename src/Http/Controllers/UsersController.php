@@ -30,7 +30,7 @@ class UsersController extends Controller
     public function login(LoginRequest $request)
     {
         //validate captcha
-        if (Session::get('check', 0) >= 3) {
+        if (Session::get('check') >= 3) {
             $request->validate([
                 'captcha' => 'required|captcha',
             ]);
@@ -48,12 +48,12 @@ class UsersController extends Controller
             }
             return redirect(route('system.user.afterLogin'));
         }
+        Session::increment('check');
 
         //  not valid
         Session::put('user', []);
         Session::put('userGroups', []);
         Session::put('userGroupType', []);
-        Session::put('check', Session::get('check', 0) + 1);
         Session::save();
         $request->session()->flash('error', __('notice.user_pass_wrong'));
         return redirect(route('index'));
@@ -170,29 +170,23 @@ class UsersController extends Controller
     public function afterLogin()
     {
         if (!Auth::user()) {
-            request()->session()->flash('notice', __('notice.error_occurred'));
-            return redirect(route('index'))->with('notice', Session::get('notice'));
+            return redirect(route('index'))->with('notice', __('notice.error_occurred'));
         }
         Session::put('user', Auth::user());
-        Session::save();
-        $user = Auth::user();
-        $userGroup = UserGroup::where('_id', $user->user_group)->first();
+        $userGroup = Auth::user()->userGroup;
 
         if (isset($userGroup->status) && $userGroup->status === UserGroup::INACTIVE_STATUS) {
             Auth::logout();
-            request()->session()->flash('notice', __('notice.login_fail_user_group_block'));
-            return redirect(route('index'));
+            return redirect(route('index'))->with('notice', __('notice.login_fail_user_group_block'));
         }
         $userGroupType = UserGroupType::find((string)$userGroup->user_group_type);
         if (isset($userGroupType->status) && $userGroupType->status === UserGroupType::INACTIVE_STATUS) {
             Auth::logout();
-            request()->session()->flash('notice', __('notice.login_fail_department_block'));
-            return redirect(route('index'));
+            return redirect(route('index'))->with('notice', ('notice.login_fail_department_block'));
         }
         Session::put('userGroup', $userGroup);
         Session::put('userGroupType', $userGroupType);
-        Session::reflash('notice');
         Session::save();
-        return redirect(route('index'))->with('notice', Session::get('notice'));
+        return redirect(route('index'));
     }
 }
