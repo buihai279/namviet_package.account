@@ -67,6 +67,9 @@ class  User extends Authenticatable
         "mobile",
         "time_expired"
     ];
+    protected $hidden = [
+        'password'
+    ];
 
     public static function getUsersByPermission($permission)
     {

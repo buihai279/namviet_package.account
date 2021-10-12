@@ -170,7 +170,7 @@
     <!--begin::Page Vendors(used by this page)-->
     <!--end::Page Vendors-->
     <!--begin::Page Scripts(used by this page)-->
-    <script src="{{asset("assets/custom/multiselect.min.js")}}"></script>
+    <script src="{{asset("vendor/theme/js/multiselect.min.js")}}"></script>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('#multiselect').multiselect({

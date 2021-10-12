@@ -43,6 +43,7 @@ Route::prefix('system')->middleware(['auth:web'])->group(function () {
     Route::post('account/verifyAuthCode/{id?}', [AccountController::class, 'verifyAuthCode'])->name('account.verifyAuthCode');
     Route::get('user/afterLogin', [UsersController::class, 'afterLogin'])->name('system.user.afterLogin');
     Route::get('user/notification', [UsersController::class, 'notification'])->name('system.user.notification');
+    Route::get('user/apiAll', [UsersController::class, 'apiAll'])->name('system.user.apiAll');
     Route::post('user/notification/markAsReadAll', [UsersController::class, 'markAsReadAll'])->name('system.user.notification.markAsReadAll');
     Route::post('user/notification/destroyAll', [UsersController::class, 'destroyAll'])->name('system.user.notification.destroyAll');
     Route::get('user/notification/view/{id?}', [UsersController::class, 'detailNotification'])->name('system.user.notification.view');

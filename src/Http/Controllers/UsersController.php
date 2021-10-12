@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Namviet\Account\Http\Requests\LoginRequest;
+use Namviet\Account\Http\Resources\UserResource;
 use Namviet\Account\Models\Notification;
 use Namviet\Account\Models\User;
 use Namviet\Account\Models\UserGroup;
@@ -25,6 +26,11 @@ class UsersController extends Controller
     {
         $this->userRepository = $userRepository;
 //        $this->middleware('twoStep')->only('afterLogin');
+    }
+
+    public function apiAll()
+    {
+        return UserResource::collection(User::all());
     }
 
     public function login(LoginRequest $request)
