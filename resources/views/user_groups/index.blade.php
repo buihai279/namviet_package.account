@@ -42,7 +42,9 @@
                                     <td>{{$userGroupTypes[(string)$userGroup->user_group_type]??'---'}}</td>
                                     <td>{{$userGroup->description}}</td>
                                     <td>{{$userGroup->status===1?'Kích hoạt':'Ngưng kích hoạt'}}</td>
-                                    <td>{{$userGroup->permissions?count($userGroup->permissions):0}} quyền hạn</td>
+                                    <td>{{$userGroup->{config('namviet_account.permission_field')}?count($userGroup->{config('namviet_account.permission_field')}):0}}
+                                        quyền hạn
+                                    </td>
                                     <td>{!! isset($userGroup->user,$userNameList[(string)$userGroup->user])?$userNameList[(string)$userGroup->user]:'' !!}</td>
                                     <td>{{Helper::transformDate($userGroup->created)}}</td>
                                     <td>

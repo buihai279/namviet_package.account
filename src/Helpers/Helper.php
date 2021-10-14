@@ -26,7 +26,7 @@ class Helper
 
     public static function isShowItemMenu($menuObj)
     {
-        return count(array_intersect(self::getAllChild($menuObj), session()->get('userGroup')['permissions'])) > 0;
+        return count(array_intersect(self::getAllChild($menuObj), session()->get('userGroup')[config('namviet_account.permission_field')])) > 0;
     }
 
     private static function getAllChild($menuObj)
@@ -51,7 +51,7 @@ class Helper
                 $permissions = array_merge($permissions, self::getAllChild($item));
             }
         }
-        return count(array_intersect($permissions, session()->get('userGroup')['permissions'])) > 0;
+        return count(array_intersect($permissions, session()->get('userGroup')[config('namviet_account.permission_field')])) > 0;
     }
 
     public static function arrPhptoJs($arr)
@@ -73,10 +73,10 @@ class Helper
 
     public static function hasPermission($permissionName)
     {
-        if (empty($permissionName) || empty(session()->get('userGroup')['permissions'])) {
+        if (empty($permissionName) || empty(session()->get('userGroup')[config('namviet_account.permission_field')])) {
             return false;
         }
-        return in_array($permissionName, session()->get('userGroup')['permissions']);
+        return in_array($permissionName, session()->get('userGroup')[config('namviet_account.permission_field')]);
     }
 
     public static function hiddenMobile($mobile)

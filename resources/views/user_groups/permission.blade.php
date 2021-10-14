@@ -132,15 +132,16 @@
                                         </span>
                                     </label>
                                     @if(request()->get('user_group'))
-                                        <select name="permissions[]" id="multiselect_to"
+                                        <select name="{{config('namviet_account.permission_field')}}[]"
+                                                id="multiselect_to"
                                                 class="form-control mb-10 border-4"
                                                 size="25"
                                                 multiple="multiple">
                                             @foreach(config('permission.codes') as $module)
-                                                @if(!empty($userGroup['permissions']) && !empty(array_intersect($userGroup['permissions'], array_keys($module['list']))))
+                                                @if(!empty($userGroup[config('namviet_account.permission_field')]) && !empty(array_intersect($userGroup[config('namviet_account.permission_field')], array_keys($module['list']))))
                                                     <optgroup label="{{$module['module_vi']??$module['module_name']}}">
                                                         @foreach($module['list'] as $key => $item)
-                                                            @if( in_array($key,$userGroup['permissions'] ))
+                                                            @if( in_array($key,$userGroup[config('namviet_account.permission_field')] ))
                                                                 <option value="{{$key}}">{{$item}}</option>
                                                             @endif
                                                         @endforeach

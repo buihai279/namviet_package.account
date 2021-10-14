@@ -83,7 +83,7 @@ class  User extends Authenticatable
 
     private static function getGroupByPermission($permission)
     {
-        return UserGroup::select(['_id'])->where('permissions', $permission)->get()->toArray();
+        return UserGroup::select(['_id'])->where(config('namviet_account.permission_field'), $permission)->get()->toArray();
     }
 
     public static function getListHtml()

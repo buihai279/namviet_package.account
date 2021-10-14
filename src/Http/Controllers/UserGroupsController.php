@@ -32,21 +32,21 @@ class UserGroupsController extends Controller
     public function editPermission(Request $request, $id)
     {
         if (Auth::user()->code !== self::SYS_ADMIN) {
-            $userGroup = UserGroup::whereIn('_id', UserGroup::getGroupPrivileged())->select(['name', 'permissions', 'user_group_type'])->findOrFail($id);
+            $userGroup = UserGroup::whereIn('_id', UserGroup::getGroupPrivileged())->select(['name', config('namviet_account.permission_field'), 'user_group_type'])->findOrFail($id);
         } else {
-            $userGroup = UserGroup::select(['name', 'permissions', 'user_group_type'])->findOrFail($id);
+            $userGroup = UserGroup::select(['name', config('namviet_account.permission_field'), 'user_group_type'])->findOrFail($id);
         }
-        $requestAll = $request->only('permissions');
-        UserGroup::where('_id', $id)->update(['permissions' => $requestAll['permissions']]);
+        $requestAll = $request->only(config('namviet_account.permission_field'));
+        UserGroup::where('_id', $id)->update($requestAll);
         return redirect(route('system.user_group.indexPermission', ['user_group' => $userGroup]));
     }
 
     public function indexPermission(Request $request)
     {
         if (Auth::user()->code !== self::SYS_ADMIN) {
-            $userGroups = UserGroup::whereIn('_id', UserGroup::getGroupPrivileged())->select(['name', 'permissions', 'user_group_type'])->orderBy('modified', 'DESC')->get();
+            $userGroups = UserGroup::whereIn('_id', UserGroup::getGroupPrivileged())->select(['name', config('namviet_account.permission_field'), 'user_group_type'])->orderBy('modified', 'DESC')->get();
         } else {
-            $userGroups = UserGroup::select(['name', 'permissions', 'user_group_type'])->orderBy('modified', 'DESC')->get();
+            $userGroups = UserGroup::select(['name', config('namviet_account.permission_field'), 'user_group_type'])->orderBy('modified', 'DESC')->get();
         }
         foreach ($userGroups as $userGroup) {
             $types[$userGroup->user_group_type ? (string)$userGroup->user_group_type : ''][] = $userGroup;
@@ -56,7 +56,7 @@ class UserGroupsController extends Controller
         if (Auth::user()->code !== self::SYS_ADMIN) {
             //nếu không phải sys admin thì chỉ cho phân quyền những quyền nó có thể
             foreach ($codeGrs as $key => $code) {
-                $available = array_intersect(array_keys($code['list']) ?? [], session()->get('userGroup')->permissions);
+                $available = array_intersect(array_keys($code['list']) ?? [], session()->get('userGroup')->{config('namviet_account.permission_field')});
                 foreach ($codeGrs[$key]['list'] as $k => $per) {
                     if (!in_array($k, $available, true)) {
                         unset($codeGrs[$key]['list'][$k]);
@@ -109,7 +109,7 @@ class UserGroupsController extends Controller
         $obj = UserGroup::find($id);
         $obj->name = $request_data['name'] ?? '';
         $obj->user_group_type = new ObjectId($request_data['user_group_type']);
-        $obj->permissions = $request_data['permissions'] ?? [];
+        $obj->{config('namviet_account.permission_field')} = $request_data[config('namviet_account.permission_field')] ?? [];
         $obj->home_url = 'Emptys/apiEmpty';
         $obj->description = $request_data['description'] ?? '';
         if ($obj->save()) {
@@ -147,7 +147,7 @@ class UserGroupsController extends Controller
         $model = new UserGroup();
         $model->name = $request_data['name'] ?? '';
         $model->status = (int)$request_data['status'];
-        $model->permissions = $request_data['permissions'] ?? [];
+        $model->{config('namviet_account.permission_field')} = $request_data[config('namviet_account.permission_field')] ?? [];
         $model->home_url = 'Emptys/apiEmpty';
         $model->user = new ObjectId(Auth::id());
         $model->user_group_type = new ObjectId($request_data['user_group_type']);
