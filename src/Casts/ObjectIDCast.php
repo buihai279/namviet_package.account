@@ -33,6 +33,6 @@ class ObjectIDCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        return new ObjectID($value);
+        return !empty($value) ? new ObjectId((string)$value) : null;
     }
 }

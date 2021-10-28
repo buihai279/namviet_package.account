@@ -110,7 +110,7 @@ class UserGroupsController extends Controller
         $obj->name = $request_data['name'] ?? '';
         $obj->user_group_type = new ObjectId($request_data['user_group_type']);
         $obj->{config('namviet_account.permission_field')} = $request_data[config('namviet_account.permission_field')] ?? [];
-        $obj->home_url = 'Emptys/apiEmpty';
+//        $obj->home_url = 'Emptys/apiEmpty';
         $obj->description = $request_data['description'] ?? '';
         if ($obj->save()) {
             $request->session()->flash('notice', 'Update thành công!');
@@ -148,7 +148,7 @@ class UserGroupsController extends Controller
         $model->name = $request_data['name'] ?? '';
         $model->status = (int)$request_data['status'];
         $model->{config('namviet_account.permission_field')} = $request_data[config('namviet_account.permission_field')] ?? [];
-        $model->home_url = 'Emptys/apiEmpty';
+//        $model->home_url = 'Emptys/apiEmpty';
         $model->user = new ObjectId(Auth::id());
         $model->user_group_type = new ObjectId($request_data['user_group_type']);
         $model->description = $request_data['description'] ?? '';

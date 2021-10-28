@@ -33,7 +33,7 @@ Route::prefix('system')->middleware(['auth:web'])->group(function () {
         Route::get('user/add', [UsersController::class, 'add'])->name('system.user.add');
         Route::get('user/index', [UsersController::class, 'index'])->name('system.user.index');
     });
-    Route::post('file/upload', [FilesController::class, 'apiUpload'])->name('system.file.apiUpload');
+    Route::post('file/upload', [FilesController::class, 'apiUpload'])->name('system.file.apiUpload')->withoutMiddleware(VerifyCsrfToken::class);
     Route::post('file/generateThumb', [FilesController::class, 'generateThumb'])->name('system.file.generateThumb');
     Route::get('file/resizeFitThumb', [FilesController::class, 'resizeFitThumb'])->name('system.file.resizeFitThumb');
     Route::post('Account/updateProfile', [AccountController::class, 'updateProfile'])->name('system.user.updateProfile');
