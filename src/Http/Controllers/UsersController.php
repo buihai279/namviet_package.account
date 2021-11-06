@@ -13,6 +13,7 @@ use Namviet\Account\Models\User;
 use Namviet\Account\Models\UserGroup;
 use Namviet\Account\Models\UserGroupType;
 use Namviet\Account\Repositories\UserRepository;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UsersController extends Controller
 {
@@ -20,10 +21,12 @@ class UsersController extends Controller
     /**
      * @var UserRepository
      */
+    private User $user;
     protected UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, User $user)
     {
+        $this->user = $user;
         $this->userRepository = $userRepository;
 //        $this->middleware('twoStep')->only('afterLogin');
     }
@@ -63,6 +66,57 @@ class UsersController extends Controller
         Session::save();
         $request->session()->flash('error', __('notice.user_pass_wrong'));
         return redirect(route('index'));
+    }
+
+    public function vueLogin(LoginRequest $request)
+    {
+//        $username = $request->input('username');
+//        $password = $request->input('password');
+        $check = Session::get('check') ?? 0;
+        if ($check >= 3) {
+            $request->validate([
+                'captcha' => 'required|captcha',
+            ]);
+        }
+
+        $credentials = $request->only('username', 'password');
+        $credentials['status'] = $this->user::ACTIVE_STATUS;
+//        $passwordHash = $this->hash($password, 'sha1', true);
+//        User::where('username', $username)->where('password', $passwordHash)->update(['password' => bcrypt($password)]);//convert crypt password
+
+        if ($token = JWTAuth::attempt($credentials)) {
+            Auth::attempt($credentials);
+            Session::forget('check');
+            if (empty(Auth::user()->time_expired)) {
+                //set time_expired if not isset
+                Auth::user()->time_expired = strtotime('+ 3 months');
+                Auth::user()->save();
+            }
+            $permissionField = config('namviet_account.permission_field');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Đăng nhập thành công!',
+                'token' => $token,
+                'userGroup' => Auth::user()->userGroup->{$permissionField} ? json_encode(Auth::user()->userGroup->{$permissionField}, JSON_THROW_ON_ERROR) : '',
+                'user' => json_encode(Auth::user(), JSON_THROW_ON_ERROR),
+            ]);
+        }
+
+        Session::put('check', $check + 1);
+        //  not valid
+        Session::put('user', []);
+        Session::put('userGroups', []);
+        Session::put('userGroupType', []);
+        Session::save();
+
+        return response()->json([
+            'errors' => [
+                'loginFail' => [
+                    'Đăng nhập không thành công!',
+                ],
+            ],
+        ],401);
     }
 
     public function index()
@@ -168,9 +222,14 @@ class UsersController extends Controller
     }
 
 
-    public function refreshCaptcha(): string
+    public function refreshCaptcha(): array
     {
-        return captcha_img('math');
+        $check = Session::get('check') ?? 0;
+
+        return [
+            'captcha' => captcha_img('math'),
+            'checkCaptcha' => $check,
+        ];
     }
 
     public function afterLogin()

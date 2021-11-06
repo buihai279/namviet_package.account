@@ -11,6 +11,9 @@ use Namviet\Account\Http\Controllers\UsersController;
 Route::get('/', [DashBoardsController::class, 'index'])->name('index');
 Route::get('user/login', [DashBoardsController::class, 'index'])->name('login');
 Route::post('user/login', [UsersController::class, 'login'])->name('system.user.login');
+
+Route::post('vue/login', [UsersController::class, 'vueLogin'])->name('vue.login');
+Route::get('refresh_captcha', [UsersController::class, 'refreshCaptcha'])->name('refresh.captcha');
 Route::prefix('system')->middleware(['auth:web'])->group(function () {
     Route::middleware(['permission'])->group(function () {
         Route::get('user_group/edit/{id}', [UserGroupsController::class, 'edit'])->name('system.user_group.edit');

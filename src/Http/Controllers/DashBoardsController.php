@@ -21,7 +21,9 @@ class DashBoardsController extends Controller
             }
             return view('views::dashboards.index');
         }
-        return view('views::account.login');
+
+        return redirect(route('vue.user.login'));
+//        return view('views::account.login');
     }
 
 }

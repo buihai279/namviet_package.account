@@ -11,9 +11,9 @@ use Namviet\Account\Casts\ObjectIDCast;
 use Namviet\Account\Helpers\Helper;
 use Namviet\Account\Overrides\Notifications\Notifiable;
 use RobThree\Auth\TwoFactorAuth;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-
-class  User extends Authenticatable
+class  User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -154,6 +154,21 @@ class  User extends Authenticatable
         }, $userGroupIds);
 
         return self::whereIn('user_group', $userGroupIds)->where('status', self::ACTIVE_STATUS)->pluck('_id')->toArray();
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
 }
