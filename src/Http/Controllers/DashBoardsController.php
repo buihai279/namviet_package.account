@@ -22,8 +22,12 @@ class DashBoardsController extends Controller
             return view('views::dashboards.index');
         }
 
-        return redirect(route('vue.user.login'));
-//        return view('views::account.login');
+        if (!empty(config('app.project_name')) && config('app.project_name') == 'VTP')
+        {
+            return redirect(route('vue.user.login'));
+        }
+
+        return view('views::account.login');
     }
 
 }

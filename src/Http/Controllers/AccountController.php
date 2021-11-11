@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Log;
+use MongoDB\BSON\UTCDateTime;
 use Namviet\Account\Http\Requests\AccountRequest;
 use Namviet\Account\Http\Requests\AuthCodeRequest;
 use Namviet\Account\Models\FileManaged;
@@ -72,6 +73,12 @@ class AccountController extends Controller
     public function update(AccountRequest $request, $id): RedirectResponse
     {
         $data = $request->all();
+        if (!empty($data['password_old']))
+        {
+            $now = date('Y-m-d H:i:s');
+
+            $data['time_expired'] = new UTCDateTime(strtotime("+3 months", strtotime($now)) * 1000);
+        }
         FileManaged::processFile($data);//xu ly upload file
         $result = $this->userRepository->update($data, $id);
         Session::put('user', $result);//update profile thành công => update lại session
